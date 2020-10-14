@@ -55,7 +55,7 @@
               <span class="dropdown">
                 <button type="button" class="btn btn-primary dropdown-toggle spin-input" data-toggle="dropdown">
                   <span class="dropdown-name">All Generes</span>
-                  
+
                 </button>
                 <div class="dropdown-menu">
                   <span class="drop-spin">
@@ -107,15 +107,15 @@
                     <a href=""></a>
                   </span>
                 </div>
-              </span> 
+              </span>
             </div>
             <div class="spin-row">
               <span class="spin-head">TYPE</span>
               <span class="checkbox">
                 <label><input type="checkbox" value="">
-                <span class="check-spin">
-                  Movies
-                </span>
+                  <span class="check-spin">
+                    Movies
+                  </span>
                 </label>
               </span>&nbsp;&nbsp;
               <span class="checkbox">
@@ -138,13 +138,13 @@
                   <a class="dropdown-item" href="#">>5</a>
                   <a class="dropdown-item" href="#">Any Score</a>
                 </div>
-              </span> 
+              </span>
             </div>
             <div class="spin-row">
               <span class="spin-head">REELGOOD</span>
               <span class="dropdown">
                 <button type="button" class="btn btn-primary dropdown-toggle spin-input" data-toggle="dropdown">
-                  <span class="dropdown-name">  >90</span>
+                  <span class="dropdown-name">>90</span>
                 </button>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="#">>90</a>
@@ -154,15 +154,44 @@
                   <a class="dropdown-item" href="#">>50</a>
                   <a class="dropdown-item" href="#">Any Score</a>
                 </div>
-              </span> 
+              </span>
+            </div>
+            <div class="spin-row">
+              <span class="spin-head">MOVIE NAME</span>
+              <span>
+                <input type="text" v-model="mname">
+              </span>
             </div>
           </div>
           <div class="col-sm-7">
-              <p class="content-spin">Let fate take the wheel... Have a spin.</p>
-              
+            <p class="content-spin" v-show="!seen">Let fate take the wheel... Have a spin.</p>
+            <!-- <p class="content-spin" v-show="seen">Hello world</p> -->
+            <div v-show="seen" class="movie-details">
+              <span class="drop-spin">
+                <img width="150" alt="altText" :src="title.Poster" />
+                <div class="m-info">
+                  <h1 class="movie-title">{{title.Title }}</h1>
+                  <div class="m-des">
+                    {{d.Year}}&nbsp;&nbsp;
+                    IMDB:{{d.imdbRating}} / 10&nbsp;&nbsp;
+                    {{d.Runtime}}&nbsp;&nbsp;
+                    {{d.Genre}}
+                    <br>
+                    <br>
+                    {{d.Plot}}
+                  </div>
+                  <button class="want-to-see">+  Want To See</button>&nbsp;&nbsp;&nbsp;
+                  <button class="seen-it"> <i class="fa fa-check" style="font-size:15px"></i>   Seen It</button>
+                   <button class="watch">WATCH NOW</button>
+                  </div>
+                  <br>
+                <div v-if="samx(`${title.imdbID}`)">
+                </div>
+              </span>
+            </div>
           </div>
         </div>
-        <div class="css-ho39u3 e4ghog311"><button class="css-1lm9uo8 eyx6tna4">SPIN </button></div>
+        <div class="css-ho39u3 e4ghog311"><button class="css-1lm9uo8 eyx6tna4" @click="spinx(ind)">SPIN</button></div>
       </div>
     </div>
 
@@ -171,49 +200,142 @@
 
 <script>
   import {
-    mapState
+    mapState,
+    mapMutations,
+    mapActions
   } from 'vuex'
 
   export default {
+
     name: 'HelloWorld',
+    data() { // Add this:
+      return {
+        mname: ''
+      }
+    },
     computed: mapState([
-      'title'
-    ])
+      // 'movies',
+      'loading',
+      'title',
+      'd',
+      'seen',
+      'ind',
+      'search',
+      'identity'
+    ]),
+    methods: { // Add this:
+      ...mapMutations([
+        'ADD_LINK',
+        'spin',
+        'mov',
+        'sam'
+      ]),
+      ...mapActions([ // Add this
+        'removeLink'
+      ]),
+      addLink: function () {
+        this.ADD_LINK(this.newLink)
+        this.newLink = ''
+      },
+      removeLinks: function (link) { // Add this
+        this.removeLink(link)
+      },
+      spinx: function () {
+        console.log(this.mname)
+        this.mov(this.mname)
+        this.spin(this.ind);
+      },
+      samx: function (i) {
+        this.sam(i)
+      }
+    }
   }
 </script>
 
 <style scoped>
-.drop-spin{
-  display:flex;
+.watch {
+    margin-top: 7%;
+    background: linear-gradient(145deg, #00e18c, #00e36a);
+    border: none;
+    border-radius: 24px;
+    line-height: 39px;
+    width: 93%;
+    font-weight: 600;
 }
-.content-spin {
+.seen-it{
+  background-color: rgba(255, 255, 255, 0.16);
+    border: none;
+    border-radius: 22px;
+    color: aliceblue;
+    line-height: 34px;
+    width: 31%;
+    font-weight: 600;
+}
+.want-to-see{
+  background-color: rgba(255, 255, 255, 0.16);
+    border: none;
+    border-radius: 22px;
+    color: aliceblue;
+    line-height: 34px;
+    width: 56%;
+    font-weight: 600;
+}
+  .m-des {
+    font-size: 14px;
+    margin-bottom: 11%;
+  }
+
+  .m-info {
+    margin-left: 4%;
+  }
+
+  .movie-title {
+    font-size: 20px;
+    text-decoration: underline;
+    font-weight: 700;
+  }
+
+  .movie-details {
+    margin-top: 3%;
+    color: aliceblue;
+        margin-left: -1em;
+  }
+
+  .drop-spin {
+    display: flex;
+  }
+
+  .content-spin {
     color: aliceblue;
     text-align: center;
     font-size: 20px;
     /* margin: 50%; */
     margin-top: 19%;
-}
-.check-spin {
+  }
+
+  .check-spin {
     font-size: 15px;
     color: aliceblue;
     margin-left: 5px;
-}
-.css-ho39u3 button {
+  }
+
+  .css-ho39u3 button {
     box-shadow: none;
     width: 36%;
     font-size: 16px;
     margin-left: 3%;
     margin-bottom: 3%;
-}
-.css-1lm9uo8 {
+  }
+
+  .css-1lm9uo8 {
     border: none;
     outline: none;
     cursor: pointer;
     line-height: 1;
     color: #081118;
-    background: linear-gradient(145deg,#00e18c,#00e36a);
+    background: linear-gradient(145deg, #00e18c, #00e36a);
     border-radius: 24px;
-    font-family: 'ProximaNova-Bold',Arial,sans-serif;
+    font-family: 'ProximaNova-Bold', Arial, sans-serif;
     -webkit-letter-spacing: 1px;
     -moz-letter-spacing: 1px;
     -ms-letter-spacing: 1px;
@@ -222,30 +344,34 @@
     padding: 16px 20px;
     min-width: 170px;
     height: 48px;
-    -webkit-transition: background 100ms,box-shadow 85ms,-webkit-transform 85ms;
-    -webkit-transition: background 100ms,box-shadow 85ms,transform 85ms;
-    transition: background 100ms,box-shadow 85ms,transform 85ms;
+    -webkit-transition: background 100ms, box-shadow 85ms, -webkit-transform 85ms;
+    -webkit-transition: background 100ms, box-shadow 85ms, transform 85ms;
+    transition: background 100ms, box-shadow 85ms, transform 85ms;
     -webkit-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
-    box-shadow: 7px 11px 19px 0 rgba(0,0,0,0.35);
+    box-shadow: 7px 11px 19px 0 rgba(0, 0, 0, 0.35);
     text-transform: uppercase;
     padding: 16px 40px;
     font-size: 14px;
     height: 40px;
     padding: 12px 40px;
     font-weight: 500;
-}
-.dropdown-item {
-  color: aliceblue;
-  font-size: 14px;
-  width: 25%;
-}
-.dropdown-item:focus, .dropdown-item:hover {
+  }
+
+  .dropdown-item {
+    color: aliceblue;
+    font-size: 14px;
+    width: 25%;
+  }
+
+  .dropdown-item:focus,
+  .dropdown-item:hover {
     color: aliceblue;
     text-decoration: none;
-    background-color: rgba(155,155,155,0.4);
-}
-.dropdown-menu.show {
+    background-color: rgba(155, 155, 155, 0.4);
+  }
+
+  .dropdown-menu.show {
     position: absolute;
     margin-left: 2px;
     background-color: rgba(96, 102, 108, 0.95);
@@ -259,72 +385,88 @@
     transition: opacity 140ms ease 0s;
     border-radius: 4px;
     flex-flow: column wrap;
-}
-.dropdown-name {
+  }
+
+  .dropdown-name {
     /* max-width: 1px; */
     display: inline-block;
     width: 107px;
-}
-.dropdown-toggle::after{
-  margin-left: 4.255em;
-}
-.spin-row {
+  }
+
+  .dropdown-toggle::after {
+    margin-left: 4.255em;
+  }
+
+  .spin-row {
     margin-top: 4%;
     margin-bottom: 4%;
-}
-.btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
-    box-shadow:unset;
-}
-.btn-primary:focus {
-    color: #fff;
-    background-color: rgba(155,155,155,0.2);
-    border-color: rgba(155,155,155,0.2);
+  }
+
+  .btn-primary:not(:disabled):not(.disabled):active:focus,
+  .show>.btn-primary.dropdown-toggle:focus {
     box-shadow: unset;
-}
-.show>.btn-primary.dropdown-toggle:focus {
+  }
+
+  .btn-primary:focus {
+    color: #fff;
+    background-color: rgba(155, 155, 155, 0.2);
+    border-color: rgba(155, 155, 155, 0.2);
     box-shadow: unset;
-}
-.btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+  }
+
+  .show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: unset;
+  }
+
+  .btn-primary:not(:disabled):not(.disabled):active,
+  .show>.btn-primary.dropdown-toggle {
     color: #fff;
-    background-color:rgba(155,155,155,0.2);
-    border-color: rgba(155,155,155,0.2);
-}
-.btn-primary:hover {
+    background-color: rgba(155, 155, 155, 0.2);
+    border-color: rgba(155, 155, 155, 0.2);
+  }
+
+  .btn-primary:hover {
     color: #fff;
-    background-color:rgba(155,155,155,0.2);
-    border-color: rgba(155,155,155,0.2);
-}
-.show>.btn-primary.dropdown-toggle {
+    background-color: rgba(155, 155, 155, 0.2);
+    border-color: rgba(155, 155, 155, 0.2);
+  }
+
+  .show>.btn-primary.dropdown-toggle {
     color: #fff;
-    background-color:rgba(155,155,155,0.2);
-    border-color: rgba(155,155,155,0.2);
-}
-.btn-focus{
-  box-shadow: unset;
-}
-.spin-input{
-  background-color: rgba(155,155,155,0.2);
+    background-color: rgba(155, 155, 155, 0.2);
+    border-color: rgba(155, 155, 155, 0.2);
+  }
+
+  .btn-focus {
+    box-shadow: unset;
+  }
+
+  .spin-input {
+    background-color: rgba(155, 155, 155, 0.2);
     padding: 8px 10px 8px 16px;
     border-radius: 4px;
     font-size: 14px;
-    border: 1px solid rgba(155,155,155,0.2);
+    border: 1px solid rgba(155, 155, 155, 0.2);
     width: 57%;
     line-height: 1em;
     text-align: left;
-}
-.spin-div{
-  background: rgba(255,255,255,0.15);
+  }
+
+  .spin-div {
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 4px;
     text-align: left;
-}
-.spin-head{
-  width: 121px;
+  }
+
+  .spin-head {
+    width: 109px;
     display: inline-block;
     color: aliceblue;
     margin-left: 7%;
-    font-size: 15px;
-}
-.css-1i0iosz {
+    font-size: 14px;
+  }
+
+  .css-1i0iosz {
     text-align: center;
     margin-bottom: 20px;
     position: relative;
@@ -338,27 +480,31 @@
     -ms-flex-align: center;
     align-items: center;
     margin: 10px 0 0;
-}
-.css-1ginyiw {
+  }
+
+  .css-1ginyiw {
     width: 56px;
     height: 28px;
     display: inline-block;
     overflow: hidden;
     border-radius: 3px;
     margin: 0 4px;
-}
-.css-1ginyiw img {
+  }
+
+  .css-1ginyiw img {
     position: relative;
     width: 100%;
-}
-.css-3yt47t {
+  }
+
+  .css-3yt47t {
     font-size: 12px;
     text-align: center;
-    color: rgb(160,160,160);
+    color: rgb(160, 160, 160);
     vertical-align: middle;
     cursor: pointer;
     margin-left: 4px;
-}
+  }
+
   .ams {
     transition: background 100ms, opacity 100ms;
     border: none;
@@ -387,6 +533,8 @@
     margin-top: 15%;
     color: white;
     text-align: left;
+    font-size: 32px;
+    font-weight: 600;
   }
 
   .main-body {
@@ -427,7 +575,7 @@
   }
 
   .space {
-    width: 20%;
+    width: 19%;
   }
 
   .login a {
