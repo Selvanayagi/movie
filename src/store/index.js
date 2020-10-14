@@ -12,10 +12,13 @@ export default createStore({
     seen:false,
     movies:[],
     ind:0,
-    loading: true,
+    load: false,
     m:[],
     identity:'',
-    d:[]
+    d:[],
+    d1:[],
+    chars: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    text:""
   },
   getters: {
     countLinks: state => {
@@ -46,12 +49,28 @@ export default createStore({
       console.log(MO)
       fetch(MO)
         .then(response => response.json())
-        .then(jsonResponse => {
-          state.d=jsonResponse
+        .then(data => {
+          state.d1=data
+          return;
+        });
+    },
+    spinrand:(state)=>{
+      // state.seen=true;
+      state.text = " "
+      for( let i=0; i < 1; i++ ) {
+				state.text += state.chars.charAt(Math.floor(Math.random() * state.chars.length))
+      }
+      const MOV = `https://www.omdbapi.com/?t=${state.text}&apikey=a5549d08`;
+      console.log(MOV)
+      fetch(MOV)
+        .then(response => response.json())
+        .then(dataans => {
+          state.d=dataans
           return;
         });
     },
     spin:(state,id)=>{
+      state.load=false
       state.seen=true;
       console.log(id)
       if(id==(state.m.length)){

@@ -156,21 +156,27 @@
                 </div>
               </span>
             </div>
-            <div class="spin-row">
+            <div class="css-ho39u3 e4ghog311"><button class="css-1lm9uo8 eyx6tna4" @click="spinx(ind)">SPIN</button></div>
+            <!-- <div class="spin-row">
               <span class="spin-head">MOVIE NAME</span>
               <span>
                 <input type="text" v-model="mname">
               </span>
-            </div>
+            </div> -->
           </div>
           <div class="col-sm-7">
             <p class="content-spin" v-show="!seen">Let fate take the wheel... Have a spin.</p>
             <!-- <p class="content-spin" v-show="seen">Hello world</p> -->
+            <div v-show="load">
+              <img :src="require('./loading.png')" alt="">
+            </div>
             <div v-show="seen" class="movie-details">
+                <!-- <div v-if="samx(`${title.imdbID}`)">
+                </div> -->
               <span class="drop-spin">
-                <img width="150" alt="altText" :src="title.Poster" />
+                <img alt="altText" :src="d.Poster" class="poster"/>
                 <div class="m-info">
-                  <h1 class="movie-title">{{title.Title }}</h1>
+                  <h1 class="movie-title">{{d.Title }}</h1>
                   <div class="m-des">
                     {{d.Year}}&nbsp;&nbsp;
                     IMDB:{{d.imdbRating}} / 10&nbsp;&nbsp;
@@ -179,19 +185,19 @@
                     <br>
                     <br>
                     {{d.Plot}}
+                    <!-- {{ d.plot.substring(0,25) }} -->
                   </div>
                   <button class="want-to-see">+  Want To See</button>&nbsp;&nbsp;&nbsp;
                   <button class="seen-it"> <i class="fa fa-check" style="font-size:15px"></i>   Seen It</button>
                    <button class="watch">WATCH NOW</button>
                   </div>
                   <br>
-                <div v-if="samx(`${title.imdbID}`)">
-                </div>
+              
               </span>
             </div>
           </div>
         </div>
-        <div class="css-ho39u3 e4ghog311"><button class="css-1lm9uo8 eyx6tna4" @click="spinx(ind)">SPIN</button></div>
+        
       </div>
     </div>
 
@@ -210,7 +216,8 @@
     name: 'HelloWorld',
     data() { // Add this:
       return {
-        mname: ''
+        mname: '',
+        // load:false
       }
     },
     computed: mapState([
@@ -221,14 +228,16 @@
       'seen',
       'ind',
       'search',
-      'identity'
+      'identity',
+      'load'
     ]),
     methods: { // Add this:
       ...mapMutations([
         'ADD_LINK',
         'spin',
         'mov',
-        'sam'
+        'sam',
+        'spinrand'
       ]),
       ...mapActions([ // Add this
         'removeLink'
@@ -241,8 +250,10 @@
         this.removeLink(link)
       },
       spinx: function () {
-        console.log(this.mname)
-        this.mov(this.mname)
+        this.load=true
+        this.spinrand()
+        // console.log(this.mname)
+        // this.mov(this.mname)
         this.spin(this.ind);
       },
       samx: function (i) {
@@ -253,6 +264,10 @@
 </script>
 
 <style scoped>
+.poster{
+  width: 150px;
+  height: 150px;
+}
 .watch {
     margin-top: 7%;
     background: linear-gradient(145deg, #00e18c, #00e36a);
@@ -261,6 +276,7 @@
     line-height: 39px;
     width: 93%;
     font-weight: 600;
+    margin-bottom: 8%;
 }
 .seen-it{
   background-color: rgba(255, 255, 255, 0.16);
@@ -283,6 +299,7 @@
   .m-des {
     font-size: 14px;
     margin-bottom: 11%;
+    width: 89%;
   }
 
   .m-info {
@@ -321,9 +338,9 @@
 
   .css-ho39u3 button {
     box-shadow: none;
-    width: 36%;
+   width: 92%;
     font-size: 16px;
-    margin-left: 3%;
+    margin-left: 4%;
     margin-bottom: 3%;
   }
 
