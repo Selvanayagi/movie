@@ -47,63 +47,63 @@
         </div>
       </div>
       <br><br>
-      <div class="spin-div">
+           <div class="spin-div">
         <div class="row">
           <div class="col-sm-5">
             <div class="spin-row">
               <span class="spin-head">GENRE</span>
               <span class="dropdown">
                 <button type="button" class="btn btn-primary dropdown-toggle spin-input" data-toggle="dropdown">
-                  <span class="dropdown-name">All Generes</span>
+                  <span class="dropdown-name">{{genreselect}}</span>
 
                 </button>
                 <div class="dropdown-menu">
                   <span class="drop-spin">
-                    <a class="dropdown-item" href="#">All Genres</a>
-                    <a class="dropdown-item" href="#">Cult</a>
-                    <a class="dropdown-item" href="#">Home & Garden</a>
-                    <a class="dropdown-item" href="#">Science-Fiction</a>
+                    <a class="dropdown-item" href="#" @click="sum('All')">All Genres</a>
+                    <a class="dropdown-item" href="#" @click="sum('Cult')">Cult</a>
+                    <a class="dropdown-item" href="#" @click="sum('Home')">Home & Garden</a>
+                    <a class="dropdown-item" href="#" @click="sum('Science')">Science-Fiction</a>
                   </span>
                   <span class="drop-spin">
-                    <a class="dropdown-item" href="#">Action & Adventure</a>
-                    <a class="dropdown-item" href="#">Documentary</a>
-                    <a class="dropdown-item" href="#">Horror</a>
-                    <a class="dropdown-item" href="#">Sport</a>
+                    <a class="dropdown-item" href="#" @click="sum('Action')">Action & Adventure</a>
+                    <a class="dropdown-item" href="#" @click="sum('Documentary')">Documentary</a>
+                    <a class="dropdown-item" href="#" @click="sum('Horror')">Horror</a>
+                    <a class="dropdown-item" href="#" @click="sum('Sport')">Sport</a>
                   </span>
                   <span class="drop-spin">
-                    <a class="dropdown-item" href="#">Animation</a>
-                    <a class="dropdown-item" href="#">Drama</a>
-                    <a class="dropdown-item" href="#">Independent</a>
-                    <a class="dropdown-item" href="#">Stand-up & talk</a>
+                    <a class="dropdown-item" href="#" @click="sum('Animation')">Animation</a>
+                    <a class="dropdown-item" href="#" @click="sum('Drama')">Drama</a>
+                    <a class="dropdown-item" href="#" @click="sum('Independent')">Independent</a>
+                    <a class="dropdown-item" href="#" @click="sum('Standup')">Stand-up & talk</a>
                   </span>
                   <span class="drop-spin">
-                    <a class="dropdown-item" href="#">Anime</a>
-                    <a class="dropdown-item" href="#">Family</a>
-                    <a class="dropdown-item" href="#">LGBTQ</a>
-                    <a class="dropdown-item" href="#">Thriller</a>
+                    <a class="dropdown-item" href="#" @click="sum('Anime')">Anime</a>
+                    <a class="dropdown-item" href="#" @click="sum('Family')">Family</a>
+                    <a class="dropdown-item" href="#" @click="sum('LGBTQ')">LGBTQ</a>
+                    <a class="dropdown-item" href="#" @click="sum('Thriller')">Thriller</a>
                   </span>
                   <span class="drop-spin">
-                    <a class="dropdown-item" href="#">Biography</a>
-                    <a class="dropdown-item" href="#">Fantasy</a>
-                    <a class="dropdown-item" href="#">Musical</a>
-                    <a class="dropdown-item" href="#">Travel</a>
+                    <a class="dropdown-item" href="#" @click="sum('Biography')">Biography</a>
+                    <a class="dropdown-item" href="#" @click="sum('Fantasy')">Fantasy</a>
+                    <a class="dropdown-item" href="#" @click="sum('Musical')">Musical</a>
+                    <a class="dropdown-item" href="#" @click="sum('Travel')">Travel</a>
                   </span>
                   <span class="drop-spin">
-                    <a class="dropdown-item" href="#">Childern</a>
-                    <a class="dropdown-item" href="#">Food</a>
-                    <a class="dropdown-item" href="#">Mystery</a>
+                    <a class="dropdown-item" href="#" @click="sum('Childern')">Childern</a>
+                    <a class="dropdown-item" href="#" @click="sum('Food')">Food</a>
+                    <a class="dropdown-item" href="#" @click="sum('Mystery')">Mystery</a>
                     <a href=""></a>
                   </span>
                   <span class="drop-spin">
-                    <a class="dropdown-item" href="#">Comedy</a>
-                    <a class="dropdown-item" href="#">Game Show</a>
-                    <a class="dropdown-item" href="#">Reality</a>
+                    <a class="dropdown-item" href="#" @click="sum('Comedy')">Comedy</a>
+                    <a class="dropdown-item" href="#" @click="sum('GameShow')">Game Show</a>
+                    <a class="dropdown-item" href="#" @click="sum('Reality')">Reality</a>
                     <a href=""></a>
                   </span>
                   <span class="drop-spin">
-                    <a class="dropdown-item" href="#">Crime</a>
-                    <a class="dropdown-item" href="#">History</a>
-                    <a class="dropdown-item" href="#">Romance</a>
+                    <a class="dropdown-item" href="#" @click="sum('Crime')">Crime</a>
+                    <a class="dropdown-item" href="#" @click="sum('History')">History</a>
+                    <a class="dropdown-item" href="#" @click="sum('Romance')">Romance</a>
                     <a href=""></a>
                   </span>
                 </div>
@@ -131,12 +131,12 @@
                   <span class="dropdown-name">Any Score</span>
                 </button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">>9</a>
-                  <a class="dropdown-item" href="#">>8</a>
-                  <a class="dropdown-item" href="#">>7</a>
-                  <a class="dropdown-item" href="#">>6</a>
-                  <a class="dropdown-item" href="#">>5</a>
-                  <a class="dropdown-item" href="#">Any Score</a>
+                  <option class="dropdown-item" value="9">>9</option>
+                  <option class="dropdown-item" value="8">>8</option>
+                  <option class="dropdown-item" value="7">>7</option>
+                  <option class="dropdown-item" value="6">>6</option>
+                  <option class="dropdown-item" value="5">>5</option>
+                  <option class="dropdown-item" value="any">Any Score</option>
                 </div>
               </span>
             </div>
@@ -147,36 +147,34 @@
                   <span class="dropdown-name">>90</span>
                 </button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">>90</a>
-                  <a class="dropdown-item" href="#">>80</a>
-                  <a class="dropdown-item" href="#">>70</a>
-                  <a class="dropdown-item" href="#">>60</a>
-                  <a class="dropdown-item" href="#">>50</a>
-                  <a class="dropdown-item" href="#">Any Score</a>
+                  <option class="dropdown-item" value="90">>90</option>
+                  <option class="dropdown-item" value="80">>80</option>
+                  <option class="dropdown-item" value="70">>70</option>
+                  <option class="dropdown-item" value="60">>60</option>
+                  <option class="dropdown-item" value="50">>50</option>
+                  <option class="dropdown-item" value="any">Any Score</option>
                 </div>
               </span>
             </div>
-            <div class="css-ho39u3 e4ghog311"><button class="css-1lm9uo8 eyx6tna4" @click="spinx(ind)">SPIN</button></div>
-            <!-- <div class="spin-row">
-              <span class="spin-head">MOVIE NAME</span>
-              <span>
-                <input type="text" v-model="mname">
-              </span>
-            </div> -->
+            <div class="css-ho39u3 e4ghog311"><button class="css-1lm9uo8 eyx6tna4" @click="spinx()">SPIN</button></div>
           </div>
           <div class="col-sm-7">
             <p class="content-spin" v-show="!seen">Let fate take the wheel... Have a spin.</p>
-            <!-- <p class="content-spin" v-show="seen">Hello world</p> -->
-            <div v-show="load">
+            <div v-show="l">
               <img :src="require('./loading.png')" alt="">
             </div>
-            <div v-show="seen" class="movie-details">
+            <div v-if="d==null" v-show="seen1" class="movie-details" >
+
+            </div>
+            <div v-else v-show="seen1" v-bind:key="d" class="movie-details" >
                 <!-- <div v-if="samx(`${title.imdbID}`)">
                 </div> -->
+                 <!-- Hello world -->
+                 <!-- {{d}} -->
               <span class="drop-spin">
-                <img alt="altText" :src="d.Poster" class="poster"/>
+                <img :src="`${d.Poster}`" alt="" class="poster">
                 <div class="m-info">
-                  <h1 class="movie-title">{{d.Title }}</h1>
+                  <h1 class="movie-title">{{d.Title}}</h1>
                   <div class="m-des">
                     {{d.Year}}&nbsp;&nbsp;
                     IMDB:{{d.imdbRating}} / 10&nbsp;&nbsp;
@@ -185,7 +183,6 @@
                     <br>
                     <br>
                     {{d.Plot}}
-                    <!-- {{ d.plot.substring(0,25) }} -->
                   </div>
                   <button class="want-to-see">+  Want To See</button>&nbsp;&nbsp;&nbsp;
                   <button class="seen-it"> <i class="fa fa-check" style="font-size:15px"></i>   Seen It</button>
@@ -194,6 +191,7 @@
                   <br>
               
               </span>
+             
             </div>
           </div>
         </div>
@@ -208,7 +206,6 @@
   import {
     mapState,
     mapMutations,
-    mapActions
   } from 'vuex'
 
   export default {
@@ -217,7 +214,10 @@
     data() { // Add this:
       return {
         mname: '',
+        genreselect:'All Genres',
         // load:false
+        seen1:false,
+        l:false
       }
     },
     computed: mapState([
@@ -229,41 +229,59 @@
       'ind',
       'search',
       'identity',
-      'load'
+      'load',
+      'genres',
+      'y',
     ]),
     methods: { // Add this:
       ...mapMutations([
-        'ADD_LINK',
         'spin',
         'mov',
         'sam',
-        'spinrand'
+        'spinrand',
+        'sup'
       ]),
-      ...mapActions([ // Add this
-        'removeLink'
-      ]),
-      addLink: function () {
-        this.ADD_LINK(this.newLink)
-        this.newLink = ''
-      },
-      removeLinks: function (link) { // Add this
-        this.removeLink(link)
+      sum:function(k){
+        console.log(k)
+        this.genreselect=k;
+        // this.genres=this.genreselect
       },
       spinx: function () {
-        this.load=true
-        this.spinrand()
-        // console.log(this.mname)
-        // this.mov(this.mname)
-        this.spin(this.ind);
+        console.log(this.d)
+        // if(this.y==0){
+        //   this.l=true;
+        //   this.sup();
+        //   this.spin(this.genreselect)
+        // }
+        // else{
+          this.l=false;
+          this.seen1=true;
+        // }
+        this.spin(this.genreselect);
       },
-      samx: function (i) {
-        this.sam(i)
-      }
     }
   }
 </script>
 
 <style scoped>
+select{
+  color:aliceblue
+}
+select > option {
+  margin-left: 2px;
+    background-color: rgba(96, 102, 108, 0.95);
+    margin-top: 3px;
+    z-index: 1;
+    opacity: 1;
+    pointer-events: initial;
+    display: flex;
+    width: 610px;
+    max-height: 260px;
+    transition: opacity 140ms ease 0s;
+    border-radius: 4px;
+    flex-flow: column wrap;
+}
+
 .poster{
   width: 150px;
   height: 150px;
