@@ -160,13 +160,32 @@
           </div>
           <div class="col-sm-7">
             <p class="content-spin" v-show="!seen">Let fate take the wheel... Have a spin.</p>
-            <div v-show="l">
-              <img :src="require('./loading.png')" alt="">
+            <div v-show="l" class="movie-details">
+              <!-- <img :src="require('./loading.png')" alt=""> -->
+              <span class="drop-spin">
+                <img :src="`${da.Poster}`" alt="" class="poster">
+                <div class="m-info">
+                  <h1 class="movie-title">{{da.Title}}</h1>
+                  <div class="m-des">
+                    {{da.Year}}&nbsp;&nbsp;
+                    IMDB:{{da.imdbRating}} / 10&nbsp;&nbsp;
+                    {{da.Runtime}}&nbsp;&nbsp;
+                    {{da.Genre}}
+                    <br>
+                    <br>
+                    {{d.Plot}}
+                  </div>
+                  <button class="want-to-see">+  Want To See</button>&nbsp;&nbsp;&nbsp;
+                  <button class="seen-it"> <i class="fa fa-check" style="font-size:15px"></i>   Seen It</button>
+                   <button class="watch">WATCH NOW</button>
+                  </div>
+                  <br>
+              </span>
             </div>
-            <div v-if="d==null" v-show="seen1" class="movie-details" >
+            <!-- <div v-if="d==null" v-show="seen1" class="movie-details" >
 
-            </div>
-            <div v-else v-show="seen1" v-bind:key="d" class="movie-details" >
+            </div> -->
+            <div v-show="seen1" v-bind:key="d" class="movie-details" >
                 <!-- <div v-if="samx(`${title.imdbID}`)">
                 </div> -->
                  <!-- Hello world -->
@@ -217,7 +236,10 @@
         genreselect:'All Genres',
         // load:false
         seen1:false,
-        l:false
+        l:false,
+        t:"",
+        c:"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        da:[]
       }
     },
     computed: mapState([
@@ -246,17 +268,30 @@
         this.genreselect=k;
         // this.genres=this.genreselect
       },
+      ma:function(){
+        this.t = " "
+        for (let i = 0; i < 1; i++) {
+          this.t += this.c.charAt(Math.floor(Math.random() * this.c.length))
+        }
+        const MOV = `https://www.omdbapi.com/?t=${this.t}&apikey=a5549d08`;
+        fetch(MOV)
+          .then(response => response.json())
+          .then(dataans => {
+            this.da=dataans;
+          });
+      },
       spinx: function () {
         console.log(this.d)
-        // if(this.y==0){
-        //   this.l=true;
-        //   this.sup();
-        //   this.spin(this.genreselect)
-        // }
-        // else{
+        if(this.y==0){
+          this.l=true;
+          this.sup();
+          // this.spin(this.genreselect)
+          this.ma();
+        }
+        else{
           this.l=false;
           this.seen1=true;
-        // }
+        }
         this.spin(this.genreselect);
       },
     }
