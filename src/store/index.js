@@ -9,8 +9,10 @@ export default createStore({
     d: "null",
     chars: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
     text: "",
-    type:'',
-    error:false
+    type:"",
+    error:false,
+    p:false,
+    s:true
   },
   getters: {
     countLinks: state => {
@@ -19,16 +21,24 @@ export default createStore({
   },
   mutations: {
     typem:(state,m)=>{
-      console.log(m)
-      if(m==true)
-        state.type="movies"
+     if(state.type==m)
+      state.type=""
+    else
+    state.type=m;
+    console.log(state.type)
     },
     types:(state,t)=>{
-      if(t==true)
-        state.type="series"
+      if(state.type==t)
+        state.type=""
+      else
+        state.type=t
+      console.log(state.type)
+
     },
     spin: (state, g) => {
-      state.seen = true;
+      state.error=false
+      state.s=false;
+      state.seen = false;
       if(g==""){
         state.text = " "
         for (let i = 0; i < 1; i++) {
@@ -38,7 +48,9 @@ export default createStore({
       else{
         state.text=g;
       } 
+      
       const MOV = `https://www.omdbapi.com/?t=${state.text}&apikey=a5549d08&type=${state.type}`;
+      console.log(MOV)
       fetch(MOV)
         .then(response => response.json())
         .then(dataans => {
@@ -46,7 +58,17 @@ export default createStore({
             state.error=true;
             state.seen=false
           }
-          state.d = dataans
+          else{
+            state.p=true;
+            setTimeout(()=>{
+              state.p=false
+            },1000);
+            setTimeout(()=>{
+              state.seen=true
+            },1000);
+            state.d = dataans
+          }
+         
         });
     },
   },
