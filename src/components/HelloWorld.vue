@@ -79,7 +79,7 @@
             <div class="spin-row">
               <span class="spin-head">TYPE</span>
               <span class="checkbox">
-                <label><input type="checkbox" value="" v-model="movies" @change="typem('movies')">
+                <label><input type="checkbox" value="" v-model="movies" @change="typem('movie')">
                   <span class="check-spin">
                     Movies
                   </span>
@@ -94,9 +94,9 @@
           <button class="spin" @click="spin(`${mname}`)">SPIN</button>
           </div>
           <div class="col-sm-7">
-            <p class="content-spin" v-show="s">Let fate take the wheel... Have a spin.</p>
+            <p class="content-spin" v-show="start">Let fate take the wheel... Have a spin.</p>
             <p class="content-spin" v-show="error">Sorry Movie not found</p>
-            <div v-show="p" style="text-align:center;margin-top: 13%;">
+            <div v-show="loading" style="text-align:center;margin-top: 13%;">
               <img :src="require('./loading.gif')" style="height: 50px;width: 50px;"> 
             </div>
             <div v-show="seen" v-bind:key="d" class="movie-details" >
@@ -106,9 +106,23 @@
                   <h1 class="movie-title">{{d.Title}}</h1>
                   <div class="m-des">
                     {{d.Year}}&nbsp;&nbsp;
-                    IMDB:{{d.imdbRating}} / 10&nbsp;&nbsp;
+                    <!-- IMDB:{{d.imdbRating}} / 10&nbsp;&nbsp; -->
                     {{d.Runtime}}&nbsp;&nbsp;
                     {{d.Genre}}
+                    <br>
+                    <br>
+                    <span>
+                      <img :src="require('./actors.png')" alt="" style="width: 8%;height: 8%;">
+                      {{d.Actors}}
+                    </span>
+                     <br>
+                    <br>
+                    <span v-bind:key="i" v-for="(da,i) in d.Ratings">
+                      <img :src="`${icons[i]}`" alt="" style="width: 6%;height: 6%;">
+                      {{da.Value}}
+                      &nbsp;&nbsp;&nbsp;
+                      <!-- <img :src="require('./rotten.png')" alt="" style="width: 6%;height: 6%;"> -->
+                    </span>
                     <br>
                     <br>
                     {{d.Plot}}
@@ -148,9 +162,10 @@
     computed: mapState([
       'd',
       'seen',
-      'p',
-    'error',
-    's'
+      'loading',
+      'error',
+      'start',
+      'icons'
     ]),
     methods: { 
       ...mapMutations([
